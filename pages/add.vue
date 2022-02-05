@@ -2,33 +2,34 @@
   <div>
     <form
       v-if="info"
+      action="https://demo-api.vsdev.space/api/delivery/sales"
+      method="post"
       class="add"
       @submit="send"
-      method="post"
-      action="https://demo-api.vsdev.space/api/delivery/sales"
+
     >
-      <h1 class="heading">Добавления</h1>
+      <h1 class="heading">Добавление</h1>
       <label v-for="(item, i) in info" :key="i">
         {{ item.title }}
         <input
           v-if="item.type !== 'select'"
-          :type="item.type"
-          v-model="keys[i]"
-          :name="keys[i]"
           :id="keys[i]"
+          v-model="keys[i]"
+          :type="item.type"
+          :name="keys[i]"
         />
         <select v-else :name="keys[i]">
           <option
             v-for="value in item.values"
-            :value="value"
-            :key="value"
             :id="keys[i]"
+            :key="value"
+            :value="value"
           >
             {{ value }}
           </option>
         </select>
       </label>
-      <button class="button" type="submit">Добавить</button>
+      <button class="button" type="submit" @click="update">Добавить</button>
     </form>
     <LoaderComp v-else />
   </div>
@@ -37,6 +38,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import LoaderComp from '@/components/LoaderComp.vue'
+// import HeadComp from '@/components/HeadComp.vue'
 export default {
   name: 'AddPage',
   components: { LoaderComp },
@@ -66,22 +68,31 @@ export default {
     console.log(this.keys)
   },
   methods: {
+    // update(){
+    //   HeadComp.$mount();
+    // },
+
     async send(e) {
       e.preventDefault()
       const data = {}
-      data.type = e.target[0].value
-      data.departure_city = e.target[1].value
-      data.departure_address = e.target[2].value
-      data.destination_city = e.target[3].value
-      data.destination_address = e.target[4].value
-      data.weight = e.target[5].value
-      data.volume = e.target[6].value
-      console.log(data)
-      const resp = await axios.post(
-        'https://demo-api.vsdev.space/api/delivery/sales',
-        data
-      )
-      console.log(resp)
+      if (e.target[0].value && e.target[1].value && e.target[2].value && e.target[3].value && e.target[4].value && e.target[5].value && e.target[6].value){
+        data.type = e.target[0].value
+        data.departure_city = e.target[1].value
+        data.departure_address = e.target[2].value
+        data.destination_city = e.target[3].value
+        data.destination_address = e.target[4].value
+        data.weight = e.target[5].value
+        data.volume = e.target[6].value
+        console.log(data)
+        await axios.post(
+          'https://demo-api.vsdev.space/api/delivery/sales',
+          data
+        )
+        e.target.reset();
+      }
+      else{
+        console.log('Заполните форму')
+      }
     },
   },
 }

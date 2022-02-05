@@ -3,24 +3,48 @@
     <div v-if="info && deliviries">
       <h1 class="heading">Главная страница</h1>
       <img class="mainimage" :src="info.image" alt="" />
-      <p class="main__text">{{ info.text }}</p>
+      <p v-html="info.text" class="main__text"></p>
       <h2>Доставки</h2>
       <div class="delivery__container">
         <div v-for="(el, i) in del" :key="i" class="delivery">
           <div v-if="el.type === 'train'" class="train">
-            Type of delivery: {{ el.type }}
+            <p>Type of delivery: {{ el.type }}</p>
+            <p>Departure city: {{ el.departure_city }}</p>
+            <p>Departure address: {{ el.departure_address }}</p>
+            <p>Destination city: {{ el.destination_city }}</p>
+            <p>Destination address: {{ el.destination_address }}</p>
+            <p>Weight: {{ el.weight }}</p>
+            <p>Volume: {{ el.volume }}</p>
             <img src="train_img.jpg" class="image" alt="" />
           </div>
           <div v-else-if="el.type === 'plane'" class="plane">
-            Type of delivery: {{ el.type }}
+            <p>Type of delivery: {{ el.type }}</p>
+            <p>Departure city: {{ el.departure_city }}</p>
+            <p>Departure address: {{ el.departure_address }}</p>
+            <p>Destination city: {{ el.destination_city }}</p>
+            <p>Destination address: {{ el.destination_address }}</p>
+            <p>Weight: {{ el.weight }}</p>
+            <p>Volume: {{ el.volume }}</p>
             <img src="plane_img.jpg" class="image" alt="" />
           </div>
           <div v-else-if="el.type === 'truck'" class="truck">
-            Type of delivery: {{ el.type }}
+            <p>Type of delivery: {{ el.type }}</p>
+            <p>Departure city: {{ el.departure_city }}</p>
+            <p>Departure address: {{ el.departure_address }}</p>
+            <p>Destination city: {{ el.destination_city }}</p>
+            <p>Destination address: {{ el.destination_address }}</p>
+            <p>Weight: {{ el.weight }}</p>
+            <p>Volume: {{ el.volume }}</p>
             <img src="truck_img.jpg" class="image" alt="" />
           </div>
           <div v-else class="ship">
-            Type of delivery: {{ el.type }}
+            <p>Type of delivery: {{ el.type }}</p>
+            <p>Departure city: {{ el.departure_city }}</p>
+            <p>Departure address: {{ el.departure_address }}</p>
+            <p>Destination city: {{ el.destination_city }}</p>
+            <p>Destination address: {{ el.destination_address }}</p>
+            <p>Weight: {{ el.weight }}</p>
+            <p>Volume: {{ el.volume }}</p>
             <img src="ship_img.jpg" class="image" alt="" />
           </div>
         </div>
@@ -84,6 +108,8 @@ export default {
 }
 
 .ship{
+  display: flex;
+  flex-direction: column;
   color: red; 
 }
 .truck{

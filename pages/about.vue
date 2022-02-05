@@ -2,7 +2,7 @@
   <div>
     <div v-if="info">
       <h1 class="heading">All about us</h1>
-      <p class="about__text">{{ info.text }}</p>
+      <p v-html="info.text" class="about__text"></p>
     </div>
     <LoaderComp v-else />
   </div>
